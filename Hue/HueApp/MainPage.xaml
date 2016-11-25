@@ -8,36 +8,50 @@
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <SplitView Name="Split" CompactPaneLength="0" OpenPaneLength="200" IsPaneOpen="False" DisplayMode="CompactOverlay">
+        <SplitView Name="Split" CompactPaneLength="50" OpenPaneLength="180" IsPaneOpen="False" DisplayMode="CompactOverlay">
             <SplitView.Pane>
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="auto"></RowDefinition>
-                        <RowDefinition></RowDefinition>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition/>
                     </Grid.RowDefinitions>
 
+                    <Button Name="SplitButton" Width="50" Height="50" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Segoe MDL2 Assets" FontSize="20" Content="&#xE700;" Click="OpenClosePane_Click"/>
 
-                    <StackPanel Name="UpperControls" >
-                        <TextBlock Height="40" FontSize="25" TextAlignment="Center">UpperButtons</TextBlock>
-                        <Button Content="All Lamps" FontSize="20" HorizontalAlignment="Stretch"></Button>
-                        <Button Content="Settings" FontSize="20" HorizontalAlignment="Stretch"></Button>
-                        <Button Content="New Lamp" FontSize="20" HorizontalAlignment="Stretch" Click="Button_Click"></Button>
-                        <TextBlock Height="40" FontSize="25" TextAlignment="Center">Lamps</TextBlock>
+                    <ListBox SelectionMode="Single" Name="UpperControls" Grid.Row="1" SelectionChanged="UpperControls_SelectionChanged">
+                        <ListBoxItem Name="AllLamps">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Width="50"/>
+                                <TextBlock Text="All Lamps" FontSize="20"/>
+                            </StackPanel>
+                        </ListBoxItem>
+                        <ListBoxItem Name="Settings">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Width="50"/>
+                                <TextBlock Text="Settings" FontSize="20"/>
+                            </StackPanel>
+                        </ListBoxItem>
+                    </ListBox>
+
+                    <StackPanel Grid.Row="2" Orientation="Horizontal">
+                        <TextBlock Height="40" Width="50"/>
+                        <TextBlock Text="Lamps" Height="40" FontSize="25" TextAlignment="Left"/>
                     </StackPanel>
 
-                    <ItemsControl Grid.Row="1" ItemsSource="{x:Bind Lamps}">
-                        <ItemsControl.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <StackPanel></StackPanel>
-                            </ItemsPanelTemplate>
-                        </ItemsControl.ItemsPanel>
-                        
-                        <ItemsControl.ItemTemplate>
+                    <ListBox Grid.Row="3" SelectionMode="Single" Name="LampControls" SelectionChanged="LampControls_SelectionChanged"  ItemsSource="{x:Bind Lamps}">
+                        <ListBox.ItemTemplate>
                             <DataTemplate x:DataType="local:Lamp">
-                                <Button FontSize="20" HorizontalAlignment="Stretch" Content ="{x:Bind Name}"></Button>
+                                <ListBoxItem Name="{x:Bind Name}">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Width="50"/>
+                                        <TextBlock Text="{x:Bind Name}" FontSize="20"/>
+                                    </StackPanel>
+                                </ListBoxItem>
                             </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
 
                 </Grid>
             </SplitView.Pane>
@@ -52,8 +66,8 @@
                             <ColumnDefinition></ColumnDefinition>
                             <ColumnDefinition Width="auto"></ColumnDefinition>
                         </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Column="0" FontSize="30" TextAlignment="Left" Text="[LampName]"></TextBlock>
-                        <Button Grid.Column="1" Name="SplitButton" Width="50" Height="50" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Segoe MDL2 Assets" FontSize="20" Content="&#xE700;" Click="OpenClosePane_Click"></Button>
+                        <TextBlock Name="textBlockPanel" Grid.Column="0" FontSize="30" TextAlignment="Left" Text="[LampName]"></TextBlock>
+                        
                     </Grid>
                    
                 </Grid>
