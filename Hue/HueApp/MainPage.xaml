@@ -16,10 +16,14 @@
                         <RowDefinition Height="auto"/>
                         <RowDefinition Height="auto"/>
                     </Grid.RowDefinitions>
-
                     <Button Name="SplitButton" Width="50" Height="50" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Segoe MDL2 Assets" FontSize="20" Content="&#xE700;" Click="OpenClosePane_Click"/>
-
                     <ListBox Grid.Row="1" SelectionMode="Single" Name="HamburberBoxUp" SelectionChanged="HamburgerBox_SelectionChanged">
+                        <ListBoxItem Name="Home">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Width="50" FontFamily="Segoe MDL2 Assets" FontSize="26" Text="&#xE10F;"/>
+                                <TextBlock Text="Home" FontSize="20"/>
+                            </StackPanel>
+                        </ListBoxItem>
                         <ListBoxItem Name="Settings">
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Width="50" FontFamily="Segoe MDL2 Assets" FontSize="26" Text="&#xE115;"/>
@@ -48,21 +52,7 @@
                 </Grid>
             </SplitView.Pane>
             <SplitView.Content>
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="50"></RowDefinition>
-                        <RowDefinition></RowDefinition>
-                    </Grid.RowDefinitions>
-                    <Grid Grid.Row="0">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition></ColumnDefinition>
-                            <ColumnDefinition Width="auto"></ColumnDefinition>
-                        </Grid.ColumnDefinitions>
-                        <TextBlock Name="textBlockPanel" Grid.Column="0" FontSize="30" TextAlignment="Left" Text="PageName"></TextBlock>
-                        
-                    </Grid>
-                   
-                </Grid>
+                <TextBlock Name="textBlockPanel" FontSize="30" TextAlignment="Left" Text="Home"/>
             </SplitView.Content>
         </SplitView>
     </Grid>

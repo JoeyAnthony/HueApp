@@ -46,7 +46,11 @@ namespace Hue
 
         private void HamburgerBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (Settings.IsSelected)
+            if (Home.IsSelected)
+            {
+                textBlockPanel.Text = "Home";
+            }
+            else if (Settings.IsSelected)
             {
                 textBlockPanel.Text = "Settings";
             }
