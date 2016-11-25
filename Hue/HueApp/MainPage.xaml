@@ -37,7 +37,7 @@
                             </StackPanel>
                         </ListBoxItem>
                     </ListBox>
-                    <ListBox Grid.Row="2" SelectionMode="Single" Name="HamburberBoxDown" SelectionChanged="HamburgerBox_SelectionChanged" ItemsSource="{x:Bind Lamps}">
+                    <!--<ListBox Grid.Row="2" SelectionMode="Single" Name="HamburberBoxDown" SelectionChanged="HamburgerBox_SelectionChanged" ItemsSource="{x:Bind Lamps}">
                         <ListBox.ItemTemplate>
                             <DataTemplate x:DataType="local:Lamp">
                                 <ListBoxItem Name="{x:Bind Name}">
@@ -48,7 +48,7 @@
                                 </ListBoxItem>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
-                    </ListBox>
+                    </ListBox>-->
                 </Grid>
             </SplitView.Pane>
             <SplitView.Content>
