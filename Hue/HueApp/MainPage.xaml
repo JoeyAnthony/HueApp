@@ -15,32 +15,25 @@
                         <RowDefinition Height="50"/>
                         <RowDefinition Height="auto"/>
                         <RowDefinition Height="auto"/>
-                        <RowDefinition/>
                     </Grid.RowDefinitions>
 
                     <Button Name="SplitButton" Width="50" Height="50" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Segoe MDL2 Assets" FontSize="20" Content="&#xE700;" Click="OpenClosePane_Click"/>
 
-                    <ListBox SelectionMode="Single" Name="UpperControls" Grid.Row="1" SelectionChanged="UpperControls_SelectionChanged">
-                        <ListBoxItem Name="AllLamps">
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Width="50"/>
-                                <TextBlock Text="All Lamps" FontSize="20"/>
-                            </StackPanel>
-                        </ListBoxItem>
+                    <ListBox Grid.Row="1" SelectionMode="Single" Name="HamburberBoxUp" SelectionChanged="HamburgerBox_SelectionChanged">
                         <ListBoxItem Name="Settings">
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock Width="50"/>
+                                <TextBlock Width="50" FontFamily="Segoe MDL2 Assets" FontSize="26" Text="&#xE115;"/>
                                 <TextBlock Text="Settings" FontSize="20"/>
                             </StackPanel>
                         </ListBoxItem>
+                        <ListBoxItem Name="LampsBox">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Width="50" FontFamily="Segoe MDL2 Assets" FontSize="28" Text="&#xE82f;"/>
+                                <TextBlock Text="Lamps" FontSize="20"/>
+                            </StackPanel>
+                        </ListBoxItem>
                     </ListBox>
-
-                    <StackPanel Grid.Row="2" Orientation="Horizontal">
-                        <TextBlock Height="40" Width="50"/>
-                        <TextBlock Text="Lamps" Height="40" FontSize="25" TextAlignment="Left"/>
-                    </StackPanel>
-
-                    <ListBox Grid.Row="3" SelectionMode="Single" Name="LampControls" SelectionChanged="LampControls_SelectionChanged"  ItemsSource="{x:Bind Lamps}">
+                    <ListBox Grid.Row="2" SelectionMode="Single" Name="HamburberBoxDown" SelectionChanged="HamburgerBox_SelectionChanged" ItemsSource="{x:Bind Lamps}">
                         <ListBox.ItemTemplate>
                             <DataTemplate x:DataType="local:Lamp">
                                 <ListBoxItem Name="{x:Bind Name}">
@@ -52,7 +45,6 @@
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>
-
                 </Grid>
             </SplitView.Pane>
             <SplitView.Content>
@@ -66,7 +58,7 @@
                             <ColumnDefinition></ColumnDefinition>
                             <ColumnDefinition Width="auto"></ColumnDefinition>
                         </Grid.ColumnDefinitions>
-                        <TextBlock Name="textBlockPanel" Grid.Column="0" FontSize="30" TextAlignment="Left" Text="[LampName]"></TextBlock>
+                        <TextBlock Name="textBlockPanel" Grid.Column="0" FontSize="30" TextAlignment="Left" Text="PageName"></TextBlock>
                         
                     </Grid>
                    

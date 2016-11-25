@@ -44,21 +44,16 @@ namespace Hue
             Lamps.Add(new Lamp((Lamps.Count + 1), "Lamp " + (Lamps.Count + 1)));
         }
 
-        private void UpperControls_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void HamburgerBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (AllLamps.IsSelected)
-            {
-                textBlockPanel.Text = "All Lamps";
-            }
-            else if (Settings.IsSelected)
+            if (Settings.IsSelected)
             {
                 textBlockPanel.Text = "Settings";
             }
-        }
-
-        private void LampControls_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            
+            else if (LampsBox.IsSelected)
+            {
+                textBlockPanel.Text = "All Lamps";
+            }
         }
     }
 }
