@@ -29,22 +29,12 @@ namespace Hue
         {
             this.InitializeComponent();
             ContentFrame.Navigate(typeof(HomePage));
-
-            Lamps.Add(new Lamp((Lamps.Count + 1), "Lamp " + (Lamps.Count + 1)));
-            Lamps.Add(new Lamp((Lamps.Count + 1), "Lamp " + (Lamps.Count + 1)));
-            Lamps.Add(new Lamp((Lamps.Count + 1), "Lamp " + (Lamps.Count + 1)));
-            Lamps.Add(new Lamp((Lamps.Count + 1), "Lamp " + (Lamps.Count + 1)));
-            Lamps.Add(new Lamp((Lamps.Count + 1), "Lamp " + (Lamps.Count + 1)));
+            HamburberBox.SelectedItem = Home;
         }
 
         private void OpenClosePane_Click(object sender, RoutedEventArgs e)
         {
             Split.IsPaneOpen = !Split.IsPaneOpen;
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            Lamps.Add(new Lamp((Lamps.Count + 1), "Lamp " + (Lamps.Count + 1)));
         }
 
         private void HamburgerBox_SelectionChanged(object sender, SelectionChangedEventArgs e)

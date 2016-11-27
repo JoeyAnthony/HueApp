@@ -15,13 +15,13 @@
 
         <RelativePanel>
             <Button Name="SplitButton" Width="50" Height="50" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Segoe MDL2 Assets" FontSize="20" Content="&#xE700;" Click="OpenClosePane_Click"/>
-            <TextBlock Name="TitleTextBlock" Text="TitleTextBlock" RelativePanel.RightOf="SplitButton" FontSize="25" FontWeight="Bold" Margin="10,7,0,0"/>
+            <TextBlock Name="TitleTextBlock" Text="Home" RelativePanel.RightOf="SplitButton" FontSize="25" FontWeight="Bold" Margin="10,7,0,0"/>
         </RelativePanel>
 
         <SplitView Grid.Row="1" Name="Split" DisplayMode="CompactOverlay" CompactPaneLength="50" OpenPaneLength="180">
             
             <SplitView.Pane>
-                <ListBox SelectionMode="Single" Name="HamburberBoxUp" SelectionChanged="HamburgerBox_SelectionChanged">
+                <ListBox SelectionMode="Single" Name="HamburberBox" SelectionChanged="HamburgerBox_SelectionChanged">
                     <ListBoxItem Name="Home">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Width="50" FontFamily="Segoe MDL2 Assets" FontSize="26" Text="&#xE10F;"/>
