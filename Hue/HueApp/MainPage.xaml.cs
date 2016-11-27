@@ -48,15 +48,15 @@ namespace Hue
         {
             if (Home.IsSelected)
             {
-                textBlockPanel.Text = "Home";
+                TitleTextBlock.Text = "Home";
             }
             else if (Settings.IsSelected)
             {
-                textBlockPanel.Text = "Settings";
+                TitleTextBlock.Text = "Settings";
             }
             else if (LampsBox.IsSelected)
             {
-                textBlockPanel.Text = "All Lamps";
+                TitleTextBlock.Text = "Lamps";
             }
         }
     }
