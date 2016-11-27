@@ -13,6 +13,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using HueApp.Pages;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -27,6 +28,8 @@ namespace Hue
         public MainPage()
         {
             this.InitializeComponent();
+            ContentFrame.Navigate(typeof(HomePage));
+
             Lamps.Add(new Lamp((Lamps.Count + 1), "Lamp " + (Lamps.Count + 1)));
             Lamps.Add(new Lamp((Lamps.Count + 1), "Lamp " + (Lamps.Count + 1)));
             Lamps.Add(new Lamp((Lamps.Count + 1), "Lamp " + (Lamps.Count + 1)));
@@ -49,14 +52,17 @@ namespace Hue
             if (Home.IsSelected)
             {
                 TitleTextBlock.Text = "Home";
+                ContentFrame.Navigate(typeof(HomePage));
             }
             else if (Settings.IsSelected)
             {
                 TitleTextBlock.Text = "Settings";
+                ContentFrame.Navigate(typeof(SettingsPage));
             }
             else if (LampsBox.IsSelected)
             {
                 TitleTextBlock.Text = "Lamps";
+                ContentFrame.Navigate(typeof(LampsPage));
             }
         }
     }

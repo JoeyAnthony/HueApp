@@ -19,6 +19,7 @@
         </RelativePanel>
 
         <SplitView Grid.Row="1" Name="Split" DisplayMode="CompactOverlay" CompactPaneLength="50" OpenPaneLength="180">
+            
             <SplitView.Pane>
                 <ListBox SelectionMode="Single" Name="HamburberBoxUp" SelectionChanged="HamburgerBox_SelectionChanged">
                     <ListBoxItem Name="Home">
@@ -41,9 +42,11 @@
                     </ListBoxItem>
                 </ListBox>
             </SplitView.Pane>
+            
             <SplitView.Content>
-                <Frame Name="myFrame"></Frame>
+                <Frame Name="ContentFrame"></Frame>
             </SplitView.Content>
+            
         </SplitView>
     </Grid>
 </Page>
