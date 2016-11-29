@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Hue
 {
-    class Lamp
+    public class Lamp
     {
         public int Number;
         public string Name;
@@ -22,9 +22,10 @@ namespace Hue
         {
         }
 
-        public Lamp(string name)
+        public Lamp(string name, string uniqueID)
         {
             Name = name;
+            UniqueID = uniqueID;
         }
 
         public Lamp(int num, string name)

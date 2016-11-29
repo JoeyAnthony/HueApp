@@ -26,19 +26,20 @@ namespace HueApp.Pages
     {
         private Hue.MainPage mainPage;
         ObservableCollection<Lamp> Lamps = new ObservableCollection<Lamp>();
+        public string currentUniqueID { get; set; }
 
         public LampsPage()
         {
             this.InitializeComponent();
-            Lamps.Add(new Hue.Lamp("Lamp1"));
-            Lamps.Add(new Hue.Lamp("Lamp2"));
-            Lamps.Add(new Hue.Lamp("Lamp3"));
-            Lamps.Add(new Hue.Lamp("Lamp4"));
-            Lamps.Add(new Hue.Lamp("Lamp5"));
-            Lamps.Add(new Hue.Lamp("Lamp6"));
-            Lamps.Add(new Hue.Lamp("Lamp7"));
-            Lamps.Add(new Hue.Lamp("Lamp8"));
-            Lamps.Add(new Hue.Lamp("Lamp9"));
+            Lamps.Add(new Hue.Lamp("Lamp1", "1"));
+            Lamps.Add(new Hue.Lamp("Lamp2", "2"));
+            Lamps.Add(new Hue.Lamp("Lamp3", "3"));
+            Lamps.Add(new Hue.Lamp("Lamp4", "4"));
+            Lamps.Add(new Hue.Lamp("Lamp5", "5"));
+            Lamps.Add(new Hue.Lamp("Lamp6", "6"));
+            Lamps.Add(new Hue.Lamp("Lamp7", "7"));
+            Lamps.Add(new Hue.Lamp("Lamp8", "8"));
+            Lamps.Add(new Hue.Lamp("Lamp9", "9"));
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs args)
@@ -49,13 +50,28 @@ namespace HueApp.Pages
 
         private void LampButton_Click(object sender, RoutedEventArgs e)
         {
+            Button clickedButton = (Button)sender;
+            currentUniqueID = clickedButton.Name;
+
             mainPage.BackButton.Visibility = Visibility.Visible;
-            mainPage.ContentFrame.Navigate(typeof(LampInfo));
+            mainPage.ContentFrame.Navigate(typeof(LampInfo), this);
         }
 
         private void AllLamps_Button(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        public Lamp getLamp(string ID)
+        {
+            for(int i = 0; i<Lamps.Count; i++)
+            {
+                if (Lamps[i].UniqueID == ID)
+                {
+                    return Lamps[i];
+                }
+            }
+            return new Lamp();
         }
     }
 }

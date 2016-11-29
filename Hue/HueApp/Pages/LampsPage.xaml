@@ -17,7 +17,7 @@
         <GridView ItemsSource="{x:Bind Lamps}" Margin="3,0,0,0">
             <GridView.ItemTemplate>
                 <DataTemplate x:DataType="data:Lamp">
-                    <Button Content="{x:Bind Name}" Width="90" Height="90" Click="LampButton_Click"/>
+                    <Button Name="{x:Bind UniqueID}" Content="{x:Bind Name}" Width="90" Height="90" Click="LampButton_Click"/>
                 </DataTemplate>
             </GridView.ItemTemplate>
         </GridView>
