@@ -8,62 +8,45 @@
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <SplitView Name="Split" CompactPaneLength="50" OpenPaneLength="180" IsPaneOpen="False" DisplayMode="CompactOverlay">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <RelativePanel>
+            <Button Name="SplitButton" Width="50" Height="50" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Segoe MDL2 Assets" FontSize="20" Content="&#xE700;" Click="OpenClosePane_Click"/>
+            <TextBlock Name="TitleTextBlock" Text="Home" RelativePanel.RightOf="SplitButton" FontSize="25" FontWeight="Bold" Margin="10,7,0,0"/>
+        </RelativePanel>
+
+        <SplitView Grid.Row="1" Name="Split" DisplayMode="CompactOverlay" CompactPaneLength="50" OpenPaneLength="180">
+            
             <SplitView.Pane>
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="50"/>
-                        <RowDefinition Height="auto"/>
-                        <RowDefinition Height="auto"/>
-                    </Grid.RowDefinitions>
-                    <Button Name="SplitButton" Width="50" Height="50" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Segoe MDL2 Assets" FontSize="20" Content="&#xE700;" Click="OpenClosePane_Click"/>
-                    <ListBox Grid.Row="1" SelectionMode="Single" Name="HamburberBoxUp" SelectionChanged="HamburgerBox_SelectionChanged">
-                        <ListBoxItem Name="Home">
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Width="50" FontFamily="Segoe MDL2 Assets" FontSize="26" Text="&#xE10F;"/>
-                                <TextBlock Text="Home" FontSize="20"/>
-                            </StackPanel>
-                        </ListBoxItem>
-                        <ListBoxItem Name="Settings">
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Width="50" FontFamily="Segoe MDL2 Assets" FontSize="26" Text="&#xE115;"/>
-                                <TextBlock Text="Settings" FontSize="20"/>
-                            </StackPanel>
-                        </ListBoxItem>
-                        <ListBoxItem Name="LampsBox">
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Width="50" FontFamily="Segoe MDL2 Assets" FontSize="28" Text="&#xE82f;"/>
-                                <TextBlock Text="Lamps" FontSize="20"/>
-                            </StackPanel>
-                        </ListBoxItem>
-                    </ListBox>
-                    <!--<ListBox Grid.Row="2" SelectionMode="Single" Name="HamburberBoxDown" SelectionChanged="HamburgerBox_SelectionChanged" ItemsSource="{x:Bind Lamps}">
-                        <ListBox.ItemTemplate>
-                            <DataTemplate x:DataType="local:Lamp">
-                                <ListBoxItem Name="{x:Bind Name}">
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBlock Width="50"/>
-                                        <TextBlock Text="{x:Bind Name}" FontSize="20"/>
-                                    </StackPanel>
-                                </ListBoxItem>
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
-                    </ListBox>-->
-                </Grid>
+                <ListBox SelectionMode="Single" Name="HamburberBox" SelectionChanged="HamburgerBox_SelectionChanged">
+                    <ListBoxItem Name="Home">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Width="50" FontFamily="Segoe MDL2 Assets" FontSize="26" Text="&#xE10F;"/>
+                            <TextBlock Text="Home" FontSize="20"/>
+                        </StackPanel>
+                    </ListBoxItem>
+                    <ListBoxItem Name="Settings">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Width="50" FontFamily="Segoe MDL2 Assets" FontSize="26" Text="&#xE115;"/>
+                            <TextBlock Text="Settings" FontSize="20"/>
+                        </StackPanel>
+                    </ListBoxItem>
+                    <ListBoxItem Name="LampsBox">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Width="50" FontFamily="Segoe MDL2 Assets" FontSize="28" Text="&#xE82f;"/>
+                            <TextBlock Text="Lamps" FontSize="20"/>
+                        </StackPanel>
+                    </ListBoxItem>
+                </ListBox>
             </SplitView.Pane>
+            
             <SplitView.Content>
-                <Grid>
-                    <StackPanel>
-                        <TextBlock Name="textBlockPanel" FontSize="30" TextAlignment="Left" Text="Home"/>
-                        <Button Name="GetAllLamps" Content="GetAllLamps" Click="GetLamps"></Button>
-                        <Button Name="NewAccount" Content="NewAccount" Click="NewAccount_Click"></Button>
-                        <Button Name="Switch" Content="Switch" Click="Switch_Click"></Button>
-                        <Button Name="Color" Content="Color" Click="Color_Click"></Button>
-                        <Button Name="AllColor" Content="AllColor" Click="AllColor_Click"></Button>
-                    </StackPanel>
-                </Grid>
-               
+                <TextBlock Name="textBlockPanel" FontSize="30" TextAlignment="Left" Text="Home"/>
             </SplitView.Content>
+            
         </SplitView>
     </Grid>
 </Page>

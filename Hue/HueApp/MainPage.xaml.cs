@@ -13,6 +13,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using HueApp.Pages;
 using System.Diagnostics;
 using Newtonsoft.Json.Linq;
 using System.Net.Http;
@@ -32,11 +33,8 @@ namespace Hue
         public MainPage()
         {
             this.InitializeComponent();
-            //Lamps.Add(new Lamp((Lamps.Count + 1), "Lamp " + (Lamps.Count + 1)));
-            //Lamps.Add(new Lamp((Lamps.Count + 1), "Lamp " + (Lamps.Count + 1)));
-            //Lamps.Add(new Lamp((Lamps.Count + 1), "Lamp " + (Lamps.Count + 1)));
-            //Lamps.Add(new Lamp((Lamps.Count + 1), "Lamp " + (Lamps.Count + 1)));
-            //Lamps.Add(new Lamp((Lamps.Count + 1), "Lamp " + (Lamps.Count + 1)));
+            ContentFrame.Navigate(typeof(HomePage));
+            HamburberBox.SelectedItem = Home;
         }
 
         private void OpenClosePane_Click(object sender, RoutedEventArgs e)
@@ -44,24 +42,22 @@ namespace Hue
             Split.IsPaneOpen = !Split.IsPaneOpen;
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            Lamps.Add(new Lamp((Lamps.Count + 1), "Lamp " + (Lamps.Count + 1)));
-        }
-
         private void HamburgerBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (Home.IsSelected)
             {
-                textBlockPanel.Text = "Home";
+                TitleTextBlock.Text = "Home";
+                ContentFrame.Navigate(typeof(HomePage));
             }
             else if (Settings.IsSelected)
             {
-                textBlockPanel.Text = "Settings";
+                TitleTextBlock.Text = "Settings";
+                ContentFrame.Navigate(typeof(SettingsPage));
             }
             else if (LampsBox.IsSelected)
             {
-                textBlockPanel.Text = "All Lamps";
+                TitleTextBlock.Text = "Lamps";
+                ContentFrame.Navigate(typeof(LampsPage));
             }
         }
 
