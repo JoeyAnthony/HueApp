@@ -14,6 +14,9 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using HueApp.Pages;
+using System.Diagnostics;
+using Newtonsoft.Json.Linq;
+using System.Net.Http;
 using Windows.UI.Text;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
@@ -26,6 +29,8 @@ namespace Hue
     public sealed partial class MainPage : Page
     {
         ObservableCollection<Lamp> Lamps = new ObservableCollection<Lamp>();
+        Command commands = new Command();
+
         public MainPage()
         {
             this.InitializeComponent();
@@ -82,6 +87,24 @@ namespace Hue
             };
 
             await dialog.ShowAsync();
+        }
+
+        public async void GetLamps(object sender, RoutedEventArgs e)
+        {
+            Lamps = await commands.GetAllLamps();
+        }
+
+        private void NewAccount_Click(object sender, RoutedEventArgs e)
+        {
+            commands.CreateAccount("name", "HueApp");
+        }
+
+        private void AllColor_Click(object sender, RoutedEventArgs e)
+        {
+            foreach (Lamp l in Lamps)
+            {
+                commands.HueSatBri(l.Number, 100, 100, 100);
+            }
         }
     }
 }
