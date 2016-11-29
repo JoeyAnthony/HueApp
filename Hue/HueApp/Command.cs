@@ -19,6 +19,7 @@ namespace Hue
 
         }
 
+        //get all lamps from the bridge
         async public Task<ObservableCollection<Lamp>> GetAllLamps()
         {
             Uri AllInfo = new Uri($"http://{ClientInfo.IP}:{ClientInfo.Port}/api/{ClientInfo.UserName}");
@@ -61,22 +62,22 @@ namespace Hue
             }
             return lamps;
         }
-
-        public async void CreateAccount(string name, string appname)
+        //create an account on the bridge
+        public async void CreateAccount(string name, string appname, MainPage page)
         {
             Uri AccountCreate = new Uri($"http://{ClientInfo.IP}:{ClientInfo.Port}/api");
-            //string body = "{\"devicetype\":\"" + appname + "#" + name + "\"}";
             string body = $"{{\"devicetype\":\"{appname}#{name}\"}}";
             JArray response = await Connection.POST(AccountCreate, body);
+
             if (response == null)
             {
                 //Big error occurred
             }
-           
-            string s = response[0].ToString();
-            if (s.Contains("error"))
+            else if (response[0].ToString().Contains("error"))
             {
-                ArrayError(response);
+                string desc = (string)response[0].SelectToken("error").SelectToken("description");
+                int type = (int)response[0].SelectToken("error").SelectToken("type");
+                page.ErrorOccurred(type, desc);
                 return;
             }
             else
@@ -85,6 +86,7 @@ namespace Hue
             }
         }
 
+        //send command to turn lamp on or off
         public async void LampSwitch(int lampId, bool on)
         {
             Uri lampState = new Uri($"http://{ClientInfo.IP}:{ClientInfo.Port}/api/{ClientInfo.UserName}/lights/{lampId}/state");
@@ -101,22 +103,13 @@ namespace Hue
             await Connection.PUT(lampState, body);
         }
 
+        //set the hue sat or bri of a lamp
         public async void HueSatBri(int lampId, int hue, int sat, int bri)
         {
             Uri lampState = new Uri($"http://{ClientInfo.IP}:{ClientInfo.Port}/api/{ClientInfo.UserName}/lights/{lampId}/state");
             string body = $"{{\"sat\":{sat}, \"bri\":{bri},\"hue\":{hue}}}";
 
             await Connection.PUT(lampState, body);
-        }
-
-        public void ArrayError(JArray J)
-        {
-            J[0].SelectToken("error");
-        }
-
-        public void Error()
-        {
-
         }
     }
 }
