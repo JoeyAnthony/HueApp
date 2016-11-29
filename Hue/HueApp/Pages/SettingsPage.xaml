@@ -8,6 +8,6 @@
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <TextBlock Text="Setting are ment to be changed" Margin="10,7,0,0"/>
+        <TextBlock Text="This is the settings page" Margin="10,5,0,0" TextWrapping="WrapWholeWords"/>
     </Grid>
 </Page>

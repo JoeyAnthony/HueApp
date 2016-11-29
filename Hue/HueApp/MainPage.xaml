@@ -14,8 +14,9 @@
         </Grid.RowDefinitions>
 
         <RelativePanel>
-            <Button Name="SplitButton" Width="50" Height="50" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Segoe MDL2 Assets" FontSize="20" Content="&#xE700;" Click="OpenClosePane_Click"/>
+            <Button Name="SplitButton" Width="50" Height="50" HorizontalAlignment="Left" FontFamily="Segoe MDL2 Assets" FontSize="20" Content="&#xE700;" Click="OpenClosePane_Click"/>
             <TextBlock Name="TitleTextBlock" Text="Home" RelativePanel.RightOf="SplitButton" FontSize="25" FontWeight="Bold" Margin="10,7,0,0"/>
+            <Button Name="BackButton" Width="50" Height="50" RelativePanel.AlignRightWithPanel="True" FontFamily="Segoe MDL2 Assets" FontSize="20" Content="&#xE112;" Click="Back_Click" Visibility="Collapsed" x:FieldModifier="public"/>
         </RelativePanel>
 
         <SplitView Grid.Row="1" Name="Split" DisplayMode="CompactOverlay" CompactPaneLength="50" OpenPaneLength="180">
@@ -44,7 +45,7 @@
             </SplitView.Pane>
             
             <SplitView.Content>
-                <Frame Name="ContentFrame"></Frame>
+                <Frame Name="ContentFrame" x:FieldModifier="public"></Frame>
             </SplitView.Content>
             
         </SplitView>

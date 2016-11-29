@@ -14,6 +14,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using HueApp.Pages;
+using Windows.UI.Text;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -28,7 +29,7 @@ namespace Hue
         public MainPage()
         {
             this.InitializeComponent();
-            ContentFrame.Navigate(typeof(HomePage));
+            ContentFrame.Navigate(typeof(HomePage), this);
             HamburberBox.SelectedItem = Home;
         }
 
@@ -42,18 +43,45 @@ namespace Hue
             if (Home.IsSelected)
             {
                 TitleTextBlock.Text = "Home";
-                ContentFrame.Navigate(typeof(HomePage));
+                BackButton.Visibility = Visibility.Collapsed;
+                ContentFrame.Navigate(typeof(HomePage), this);
             }
             else if (Settings.IsSelected)
             {
                 TitleTextBlock.Text = "Settings";
-                ContentFrame.Navigate(typeof(SettingsPage));
+                BackButton.Visibility = Visibility.Collapsed;
+                ContentFrame.Navigate(typeof(SettingsPage), this);
             }
             else if (LampsBox.IsSelected)
             {
                 TitleTextBlock.Text = "Lamps";
-                ContentFrame.Navigate(typeof(LampsPage));
+                BackButton.Visibility = Visibility.Collapsed;
+                ContentFrame.Navigate(typeof(LampsPage), this);
             }
+        }
+
+        private void Back_Click(object sender, RoutedEventArgs e)
+        {
+            ContentFrame.GoBack();
+            BackButton.Visibility = Visibility.Collapsed;
+        }
+
+        public async void ErrorOccurred(int errorCode, string errorMessage)
+        {
+            ContentDialog dialog = new ContentDialog()
+            {
+                FontSize = 26,
+                Title = "Error: " + errorCode.ToString(),
+                MaxWidth = this.ActualWidth,
+                PrimaryButtonText = "Ok",
+                Content = new TextBlock
+                {
+                    FontSize = 15,
+                    Text = errorMessage
+                }
+            };
+
+            await dialog.ShowAsync();
         }
     }
 }

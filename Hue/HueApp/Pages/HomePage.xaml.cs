@@ -22,9 +22,30 @@ namespace HueApp.Pages
     /// </summary>
     public sealed partial class HomePage : Page
     {
+        private Hue.MainPage mainPage;
+
         public HomePage()
         {
             this.InitializeComponent();
+
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs args)
+        {
+            var Mainpage = (Hue.MainPage)args.Parameter;
+            mainPage = Mainpage;
+        }
+
+        private void Joey_Click(object sender, RoutedEventArgs e)
+        {
+            mainPage.BackButton.Visibility = Visibility.Visible;
+            mainPage.ContentFrame.Navigate(typeof(JoeyInfoPage));
+        }
+
+        private void Cas_Click(object sender, RoutedEventArgs e)
+        {
+            mainPage.BackButton.Visibility = Visibility.Visible;
+            mainPage.ContentFrame.Navigate(typeof(CasInfoPage));
         }
     }
 }

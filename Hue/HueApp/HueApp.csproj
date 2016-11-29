@@ -99,8 +99,17 @@
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\CasInfoPage.xaml.cs">
+      <DependentUpon>CasInfoPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\HomePage.xaml.cs">
       <DependentUpon>HomePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\JoeyInfoPage.xaml.cs">
+      <DependentUpon>JoeyInfoPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\LampInfo.xaml.cs">
+      <DependentUpon>LampInfo.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\LampsPage.xaml.cs">
       <DependentUpon>LampsPage.xaml</DependentUpon>
@@ -117,6 +126,8 @@
     <None Include="HueApp_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\Cas.png" />
+    <Content Include="Assets\Joey.png" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
@@ -135,7 +146,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Pages\CasInfoPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\HomePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\JoeyInfoPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\LampInfo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -15,6 +15,11 @@ namespace Hue
         {
         }
 
+        public Lamp(string name)
+        {
+            Name = name;
+        }
+
         public Lamp(int num, string name)
         {
             Number = num;

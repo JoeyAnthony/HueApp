@@ -22,9 +22,17 @@ namespace HueApp.Pages
     /// </summary>
     public sealed partial class SettingsPage : Page
     {
+        private Hue.MainPage mainPage;
+
         public SettingsPage()
         {
             this.InitializeComponent();
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs args)
+        {
+            var Mainpage = (Hue.MainPage)args.Parameter;
+            mainPage = Mainpage;
         }
     }
 }
