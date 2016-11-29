@@ -36,7 +36,20 @@ namespace Hue
             this.InitializeComponent();
             ContentFrame.Navigate(typeof(HomePage), this);
             HamburberBox.SelectedItem = Home;
-            GetLamps();
+            StartUp();
+        }
+
+        public async void StartUp()
+        {
+            //if (commands.ClientInfo.UserName == string.Empty)
+            //{
+            //    ErrorOccurred(420, "Please log in to the bridge");
+            //    return;
+            //}
+            if (await commands.CreateAccount("name", "HueApp", this))
+            {
+                GetLamps();
+            }
         }
 
         private void OpenClosePane_Click(object sender, RoutedEventArgs e)
@@ -103,10 +116,10 @@ namespace Hue
             }
         }
 
-        private void NewAccount_Click()
-        {
-            commands.CreateAccount("name", "HueApp", this);
-        }
+        //private void NewAccount_Click()
+        //{
+        //    commands.CreateAccount("name", "HueApp", this);
+        //}
 
         private void AllColor_Click()
         {

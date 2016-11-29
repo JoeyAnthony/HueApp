@@ -11,8 +11,8 @@ namespace Hue
 {
     class Command
     {
-        SendReceive Connection = new SendReceive();
-        Client ClientInfo = new Client();
+        private SendReceive Connection = new SendReceive();
+        public Client ClientInfo = new Client();
 
         public Command()
         {
@@ -24,16 +24,16 @@ namespace Hue
         {
             Uri AllInfo = new Uri($"http://{ClientInfo.IP}:{ClientInfo.Port}/api/{ClientInfo.UserName}");
             JObject data = await Connection.GET(AllInfo);
-            //ERROR CATHING NOT TESTED!!!
+            //ERROR CATCHING NOT TESTED!!!
             if (data == null)
             {
                 page.ErrorOccurred(404,"Connction error: Are you connected to the bridge?");
                 return null;
             }
-            else if (data[0].ToString().Contains("error"))
+            else if (data.ToString().Contains("error"))
             {
-                string desc = (string)data[0].SelectToken("error").SelectToken("description");
-                int type = (int)data[0].SelectToken("error").SelectToken("type");
+                string desc = (string)data.SelectToken("error").SelectToken("description");
+                int type = (int)data.SelectToken("error").SelectToken("type");
                 page.ErrorOccurred(type, desc);
                 return null;
             }
@@ -77,7 +77,7 @@ namespace Hue
             return lamps;
         }
         //create an account on the bridge
-        public async void CreateAccount(string name, string appname, MainPage page)
+        public async Task<bool> CreateAccount(string name, string appname, MainPage page)
         {
             Uri AccountCreate = new Uri($"http://{ClientInfo.IP}:{ClientInfo.Port}/api");
             string body = $"{{\"devicetype\":\"{appname}#{name}\"}}";
@@ -86,18 +86,19 @@ namespace Hue
             if (response == null)
             {
                 page.ErrorOccurred(404, "Connction error: Are you connected to the bridge?");
-                return;
+                return false;
             }
             else if (response[0].ToString().Contains("error"))
             {
                 string desc = (string)response[0].SelectToken("error").SelectToken("description");
                 int type = (int)response[0].SelectToken("error").SelectToken("type");
                 page.ErrorOccurred(type, desc);
-                return;
+                return false;
             }
             else
             {
                 ClientInfo.UserName = response[0].SelectToken("success").SelectToken("username").ToString();
+                return true;
             }
         }
 
@@ -122,10 +123,10 @@ namespace Hue
                 page.ErrorOccurred(404, "Connction error: Are you connected to the bridge?");
                 return;
             }
-            else if (response[0].ToString().Contains("error"))
+            else if (response.ToString().Contains("error"))
             {
-                string desc = (string)response[0].SelectToken("error").SelectToken("description");
-                int type = (int)response[0].SelectToken("error").SelectToken("type");
+                string desc = (string)response.SelectToken("error").SelectToken("description");
+                int type = (int)response.SelectToken("error").SelectToken("type");
                 page.ErrorOccurred(type, desc);
                 return;
             }
@@ -144,10 +145,10 @@ namespace Hue
                 page.ErrorOccurred(404, "Connction error: Are you connected to the bridge?");
                 return;
             }
-            else if (response[0].ToString().Contains("error"))
+            else if (response.ToString().Contains("error"))
             {
-                string desc = (string)response[0].SelectToken("error").SelectToken("description");
-                int type = (int)response[0].SelectToken("error").SelectToken("type");
+                string desc = (string)response.SelectToken("error").SelectToken("description");
+                int type = (int)response.SelectToken("error").SelectToken("type");
                 page.ErrorOccurred(type, desc);
                 return;
             }
