@@ -36,7 +36,7 @@ namespace HueApp.Pages
         {
             var LampGot = (LampsPage)args.Parameter;
             LampsPage = LampGot;
-            Lamp = LampsPage.getLamp(LampsPage.currentUniqueID);
+            Lamp = LampsPage.getLamp(LampsPage.currentNumber);
             LampName.Text = Lamp.Name;
         }
     }
