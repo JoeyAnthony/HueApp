@@ -20,10 +20,24 @@ namespace Hue
         }
 
         //get all lamps from the bridge
-        async public Task<ObservableCollection<Lamp>> GetAllLamps()
+        async public Task<ObservableCollection<Lamp>> GetAllLamps(MainPage page)
         {
             Uri AllInfo = new Uri($"http://{ClientInfo.IP}:{ClientInfo.Port}/api/{ClientInfo.UserName}");
             JObject data = await Connection.GET(AllInfo);
+            //ERROR CATHING NOT TESTED!!!
+            if (data == null)
+            {
+                page.ErrorOccurred(404,"Connction error: Are you connected to the bridge?");
+                return null;
+            }
+            else if (data[0].ToString().Contains("error"))
+            {
+                string desc = (string)data[0].SelectToken("error").SelectToken("description");
+                int type = (int)data[0].SelectToken("error").SelectToken("type");
+                page.ErrorOccurred(type, desc);
+                return null;
+            }
+
             ObservableCollection<Lamp> lamps = new ObservableCollection<Lamp>();
 
             foreach (JProperty x in data.SelectToken("lights"))
@@ -71,7 +85,8 @@ namespace Hue
 
             if (response == null)
             {
-                //Big error occurred
+                page.ErrorOccurred(404, "Connction error: Are you connected to the bridge?");
+                return;
             }
             else if (response[0].ToString().Contains("error"))
             {
@@ -87,7 +102,7 @@ namespace Hue
         }
 
         //send command to turn lamp on or off
-        public async void LampSwitch(int lampId, bool on)
+        public async void LampSwitch(int lampId, bool on, MainPage page)
         {
             Uri lampState = new Uri($"http://{ClientInfo.IP}:{ClientInfo.Port}/api/{ClientInfo.UserName}/lights/{lampId}/state");
             string body;
@@ -100,16 +115,42 @@ namespace Hue
                 body = "{\"on\":true}";
             }
             
-            await Connection.PUT(lampState, body);
+            var response = await Connection.PUT(lampState, body);
+
+            if (response == null)
+            {
+                page.ErrorOccurred(404, "Connction error: Are you connected to the bridge?");
+                return;
+            }
+            else if (response[0].ToString().Contains("error"))
+            {
+                string desc = (string)response[0].SelectToken("error").SelectToken("description");
+                int type = (int)response[0].SelectToken("error").SelectToken("type");
+                page.ErrorOccurred(type, desc);
+                return;
+            }
         }
 
         //set the hue sat or bri of a lamp
-        public async void HueSatBri(int lampId, int hue, int sat, int bri)
+        public async void HueSatBri(int lampId, int hue, int sat, int bri, MainPage page)
         {
             Uri lampState = new Uri($"http://{ClientInfo.IP}:{ClientInfo.Port}/api/{ClientInfo.UserName}/lights/{lampId}/state");
             string body = $"{{\"sat\":{sat}, \"bri\":{bri},\"hue\":{hue}}}";
 
-            await Connection.PUT(lampState, body);
+            var response = await Connection.PUT(lampState, body);
+
+            if (response == null)
+            {
+                page.ErrorOccurred(404, "Connction error: Are you connected to the bridge?");
+                return;
+            }
+            else if (response[0].ToString().Contains("error"))
+            {
+                string desc = (string)response[0].SelectToken("error").SelectToken("description");
+                int type = (int)response[0].SelectToken("error").SelectToken("type");
+                page.ErrorOccurred(type, desc);
+                return;
+            }
         }
     }
 }
