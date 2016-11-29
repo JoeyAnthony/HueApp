@@ -36,6 +36,7 @@ namespace Hue
             this.InitializeComponent();
             ContentFrame.Navigate(typeof(HomePage), this);
             HamburberBox.SelectedItem = Home;
+            GetLamps();
         }
 
         private void OpenClosePane_Click(object sender, RoutedEventArgs e)
@@ -89,21 +90,29 @@ namespace Hue
             await dialog.ShowAsync();
         }
 
-        public async void GetLamps(object sender, RoutedEventArgs e)
+        public async void GetLamps()
         {
-            Lamps = await commands.GetAllLamps();
+           var collection = await commands.GetAllLamps(this);
+            if(collection == null)
+            {
+                return;
+            }
+            else
+            {
+                Lamps = collection;
+            }
         }
 
-        private void NewAccount_Click(object sender, RoutedEventArgs e)
+        private void NewAccount_Click()
         {
             commands.CreateAccount("name", "HueApp", this);
         }
 
-        private void AllColor_Click(object sender, RoutedEventArgs e)
+        private void AllColor_Click()
         {
             foreach (Lamp l in Lamps)
             {
-                commands.HueSatBri(l.Number, 100, 100, 100);
+                commands.HueSatBri(l.Number, 100, 100, 100, this);
             }
         }
     }
