@@ -8,7 +8,7 @@ namespace Hue
 {
     class Client
     {
-        private static string UName = "0ec36b5aca20351a9c5230e857b351c";
+        private static string UName = string.Empty;
         private static string IPadress = "localhost";
         private static int PortNum = 8000;
 

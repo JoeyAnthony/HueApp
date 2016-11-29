@@ -96,7 +96,7 @@ namespace Hue
 
         private void NewAccount_Click(object sender, RoutedEventArgs e)
         {
-            commands.CreateAccount("name", "HueApp");
+            commands.CreateAccount("name", "HueApp", this);
         }
 
         private void AllColor_Click(object sender, RoutedEventArgs e)

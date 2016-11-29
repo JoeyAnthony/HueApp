@@ -21,7 +21,7 @@ namespace Hue
         {
             Debug.WriteLine("All set");
         }
-
+        //send GET messages
         public async Task<JObject> GET(Uri command)
         {
             try
@@ -40,12 +40,12 @@ namespace Hue
             }
             catch (Exception)
             {
-
+                return null;
                 throw;
             }
             
         }
-
+        //send POST messages
         public async Task<JArray> POST(Uri uri, string body)
         {
             JArray data = null;
@@ -65,10 +65,12 @@ namespace Hue
             }
             catch (Exception)
             {
+                return null;
                 throw;
             }
         }
 
+        //send PUT messages
         public async Task<JArray> PUT(Uri uri, string body)
         {
             JArray data = null;
@@ -88,6 +90,7 @@ namespace Hue
             }
             catch (Exception)
             {
+                return null;
                 throw;
             }
         }
