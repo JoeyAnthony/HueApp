@@ -13,6 +13,9 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using System.Diagnostics;
+using Newtonsoft.Json.Linq;
+using System.Net.Http;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -24,14 +27,16 @@ namespace Hue
     public sealed partial class MainPage : Page
     {
         ObservableCollection<Lamp> Lamps = new ObservableCollection<Lamp>();
+        Command commands = new Command();
+
         public MainPage()
         {
             this.InitializeComponent();
-            Lamps.Add(new Lamp((Lamps.Count + 1), "Lamp " + (Lamps.Count + 1)));
-            Lamps.Add(new Lamp((Lamps.Count + 1), "Lamp " + (Lamps.Count + 1)));
-            Lamps.Add(new Lamp((Lamps.Count + 1), "Lamp " + (Lamps.Count + 1)));
-            Lamps.Add(new Lamp((Lamps.Count + 1), "Lamp " + (Lamps.Count + 1)));
-            Lamps.Add(new Lamp((Lamps.Count + 1), "Lamp " + (Lamps.Count + 1)));
+            //Lamps.Add(new Lamp((Lamps.Count + 1), "Lamp " + (Lamps.Count + 1)));
+            //Lamps.Add(new Lamp((Lamps.Count + 1), "Lamp " + (Lamps.Count + 1)));
+            //Lamps.Add(new Lamp((Lamps.Count + 1), "Lamp " + (Lamps.Count + 1)));
+            //Lamps.Add(new Lamp((Lamps.Count + 1), "Lamp " + (Lamps.Count + 1)));
+            //Lamps.Add(new Lamp((Lamps.Count + 1), "Lamp " + (Lamps.Count + 1)));
         }
 
         private void OpenClosePane_Click(object sender, RoutedEventArgs e)
@@ -57,6 +62,24 @@ namespace Hue
             else if (LampsBox.IsSelected)
             {
                 textBlockPanel.Text = "All Lamps";
+            }
+        }
+
+        public async void GetLamps(object sender, RoutedEventArgs e)
+        {
+            Lamps = await commands.GetAllLamps();
+        }
+
+        private void NewAccount_Click(object sender, RoutedEventArgs e)
+        {
+            commands.CreateAccount("name", "HueApp");
+        }
+
+        private void AllColor_Click(object sender, RoutedEventArgs e)
+        {
+            foreach (Lamp l in Lamps)
+            {
+                commands.HueSatBri(l.Number, 100, 100, 100);
             }
         }
     }

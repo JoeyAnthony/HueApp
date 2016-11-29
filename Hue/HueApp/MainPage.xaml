@@ -52,7 +52,17 @@
                 </Grid>
             </SplitView.Pane>
             <SplitView.Content>
-                <TextBlock Name="textBlockPanel" FontSize="30" TextAlignment="Left" Text="Home"/>
+                <Grid>
+                    <StackPanel>
+                        <TextBlock Name="textBlockPanel" FontSize="30" TextAlignment="Left" Text="Home"/>
+                        <Button Name="GetAllLamps" Content="GetAllLamps" Click="GetLamps"></Button>
+                        <Button Name="NewAccount" Content="NewAccount" Click="NewAccount_Click"></Button>
+                        <Button Name="Switch" Content="Switch" Click="Switch_Click"></Button>
+                        <Button Name="Color" Content="Color" Click="Color_Click"></Button>
+                        <Button Name="AllColor" Content="AllColor" Click="AllColor_Click"></Button>
+                    </StackPanel>
+                </Grid>
+               
             </SplitView.Content>
         </SplitView>
     </Grid>
