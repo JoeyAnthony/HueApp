@@ -22,10 +22,10 @@ namespace Hue
         {
         }
 
-        public Lamp(string name, string uniqueID)
+        public Lamp(string name, int number)
         {
             Name = name;
-            UniqueID = uniqueID;
+            Number = number;
         }
 
         public Lamp(int num, string name)
