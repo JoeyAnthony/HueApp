@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Hue;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -22,9 +24,20 @@ namespace HueApp.Pages
     /// </summary>
     public sealed partial class LampInfo : Page
     {
+        private Lamp Lamp;
+        private LampsPage LampsPage;
+
         public LampInfo()
         {
             this.InitializeComponent();
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs args)
+        {
+            var LampGot = (LampsPage)args.Parameter;
+            LampsPage = LampGot;
+            Lamp = LampsPage.getLamp(LampsPage.currentUniqueID);
+            LampName.Text = Lamp.Name;
         }
     }
 }
