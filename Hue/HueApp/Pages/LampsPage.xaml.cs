@@ -69,5 +69,10 @@ namespace HueApp.Pages
             }
             return new Lamp();
         }
+
+        private void Test_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

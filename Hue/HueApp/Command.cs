@@ -179,5 +179,69 @@ namespace Hue
                 return color;
             }
         }
+
+        public async void GetGroups(MainPage page)
+        {
+            Uri AllInfo = new Uri($"http://{ClientInfo.IP}:{ClientInfo.Port}/api/{ClientInfo.UserName}");
+            var response = await Connection.GET(AllInfo);
+            if (response == null)
+            {
+                page.ErrorOccurred(404, "Connction error: Are you connected to the bridge?");
+                return null;
+            }
+            else if (response is JArray)
+            {
+                JArray array = (JArray)response;
+                string desc = (string)response[0].SelectToken("error").SelectToken("description");
+                int type = (int)response[0].SelectToken("error").SelectToken("type");
+                if (type == 3)
+                {
+                    desc = "Have you logged in to the bridge yet?";
+                }
+                page.ErrorOccurred(type, desc);
+                return null;
+            }
+            else
+            {
+                JObject data = (JObject)response;
+                ObservableCollection<Lamp> groups = new ObservableCollection<Lamp>();
+
+                foreach (JProperty x in data.SelectToken("lights"))
+                {
+                    Lamp lamp = new Lamp();
+
+
+                    foreach (JProperty z in x.Value.SelectToken("state"))
+                    {
+                        if (z.Name.Contains("on"))
+                        {
+                            lamp.IsOn = (bool)z.Value;
+                        }
+                        if (z.Name.Contains("bri"))
+                        {
+                            lamp.Brightness = (int)z.Value;
+                        }
+                        if (z.Name.Contains("hue"))
+                        {
+                            lamp.Hue = (int)z.Value;
+                        }
+                        if (z.Name.Contains("sat"))
+                        {
+                            lamp.Saturation = (int)z.Value;
+                        }
+                    }
+
+                    string a = x.Name;
+
+                    lamp.Number = int.Parse(x.Name);
+                    lamp.Type = (string)x.Value.SelectToken("type");
+                    lamp.Name = (string)x.Value.SelectToken("name");
+                    lamp.ModelID = (string)x.Value.SelectToken("modelid");
+                    lamp.UniqueID = (string)x.Value.SelectToken("uniqueid");
+                    lamps.Add(lamp);
+                }
+                return lamps;
+            }
+        }
     }
 }

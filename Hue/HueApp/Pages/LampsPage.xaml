@@ -23,6 +23,7 @@
         </GridView>
         <GridView Margin="3,0,0,0" Grid.Row="2">
             <Button Content="All lamps" Width="90" Height="90"/>
+            <Button Content="TESTKNOP" Name="Test" Width="90" Height="90" Click="Test_Click"/>
         </GridView>
     </Grid>
 </Page>
