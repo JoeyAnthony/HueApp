@@ -28,29 +28,21 @@ namespace Hue
     /// </summary>
     public sealed partial class MainPage : Page
     {
-        ObservableCollection<Lamp> Lamps = new ObservableCollection<Lamp>();
-        Command commands = new Command();
+        private ObservableCollection<Lamp> Lamps = new ObservableCollection<Lamp>();
+        private Command commands = new Command();
+
+        public ObservableCollection<Lamp> LampsProp { get { return Lamps; } }
+        public Command Lampstuff { get { return commands; } }
 
         public MainPage()
         {
             this.InitializeComponent();
             ContentFrame.Navigate(typeof(HomePage), this);
             HamburberBox.SelectedItem = Home;
-            StartUp();
+            GetLamps();
         }
 
-        public async void StartUp()
-        {
-            //if (commands.ClientInfo.UserName == string.Empty)
-            //{
-            //    ErrorOccurred(420, "Please log in to the bridge");
-            //    return;
-            //}
-            if (await commands.CreateAccount("name", "HueApp", this))
-            {
-                GetLamps();
-            }
-        }
+
 
         private void OpenClosePane_Click(object sender, RoutedEventArgs e)
         {

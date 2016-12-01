@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Hue
 {
-    class Client
+    public class Client
     {
-        private static string UName = string.Empty;
+        private static string UName = "No Username";
         private static string IPadress = "localhost";
         private static int PortNum = 8000;
 

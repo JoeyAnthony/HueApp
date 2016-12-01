@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -33,6 +34,17 @@ namespace HueApp.Pages
         {
             var Mainpage = (Hue.MainPage)args.Parameter;
             mainPage = Mainpage;
+            UserText.Text = mainPage.Lampstuff.ClientInfo.UserName;
+        }
+
+        public async void Login(object sender, RoutedEventArgs e)
+        {
+            if(await mainPage.Lampstuff.CreateAccount("name", "HueApp", mainPage))
+            {
+                UserText.Text = mainPage.Lampstuff.ClientInfo.UserName;
+                mainPage.GetLamps();
+            }
+            
         }
     }
 }

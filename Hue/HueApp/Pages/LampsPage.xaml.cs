@@ -28,24 +28,18 @@ namespace HueApp.Pages
         ObservableCollection<Lamp> Lamps = new ObservableCollection<Lamp>();
         public int currentNumber { get; set; }
 
+        public MainPage PageoftheMain { get { return mainPage; } }
+
         public LampsPage()
         {
             this.InitializeComponent();
-            Lamps.Add(new Hue.Lamp("Lamp1", 1));
-            Lamps.Add(new Hue.Lamp("Lamp2", 2));
-            Lamps.Add(new Hue.Lamp("Lamp3", 3));
-            Lamps.Add(new Hue.Lamp("Lamp4", 4));
-            Lamps.Add(new Hue.Lamp("Lamp5", 5));
-            Lamps.Add(new Hue.Lamp("Lamp6", 6));
-            Lamps.Add(new Hue.Lamp("Lamp7", 7));
-            Lamps.Add(new Hue.Lamp("Lamp8", 8));
-            Lamps.Add(new Hue.Lamp("Lamp9", 9));
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs args)
         {
             var Mainpage = (Hue.MainPage)args.Parameter;
             mainPage = Mainpage;
+            Lamps = mainPage.LampsProp;
         }
 
         private void LampButton_Click(object sender, RoutedEventArgs e)

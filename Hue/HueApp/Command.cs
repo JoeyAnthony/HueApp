@@ -9,7 +9,7 @@ using System.Diagnostics;
 
 namespace Hue
 {
-    class Command
+    public class Command
     {
         private SendReceive Connection = new SendReceive();
         public Client ClientInfo = new Client();
@@ -23,58 +23,67 @@ namespace Hue
         async public Task<ObservableCollection<Lamp>> GetAllLamps(MainPage page)
         {
             Uri AllInfo = new Uri($"http://{ClientInfo.IP}:{ClientInfo.Port}/api/{ClientInfo.UserName}");
-            JObject data = await Connection.GET(AllInfo);
-            //ERROR CATCHING NOT TESTED!!!
-            if (data == null)
+            var response = await Connection.GET(AllInfo);
+            if (response == null)
             {
                 page.ErrorOccurred(404,"Connction error: Are you connected to the bridge?");
                 return null;
             }
-            else if (data.ToString().Contains("error"))
+            else if (response is JArray)
             {
-                string desc = (string)data.SelectToken("error").SelectToken("description");
-                int type = (int)data.SelectToken("error").SelectToken("type");
+                JArray array = (JArray)response;
+                string desc = (string)response[0].SelectToken("error").SelectToken("description");
+                int type = (int)response[0].SelectToken("error").SelectToken("type");
+                if (type == 3)
+                {
+                    desc = "Have you logged in to the bridge yet?";
+                }
                 page.ErrorOccurred(type, desc);
                 return null;
             }
-
-            ObservableCollection<Lamp> lamps = new ObservableCollection<Lamp>();
-
-            foreach (JProperty x in data.SelectToken("lights"))
+            else
             {
-                Lamp lamp = new Lamp();
+                JObject data = (JObject)response;
+                ObservableCollection<Lamp> lamps = new ObservableCollection<Lamp>();
 
-
-                foreach (JProperty z in x.Value.SelectToken("state"))
+                foreach (JProperty x in data.SelectToken("lights"))
                 {
-                    if (z.Name.Contains("on"))
+                    Lamp lamp = new Lamp();
+
+
+                    foreach (JProperty z in x.Value.SelectToken("state"))
                     {
-                        lamp.IsOn = (bool)z.Value;
+                        if (z.Name.Contains("on"))
+                        {
+                            lamp.IsOn = (bool)z.Value;
+                        }
+                        if (z.Name.Contains("bri"))
+                        {
+                            lamp.Brightness = (int)z.Value;
+                        }
+                        if (z.Name.Contains("hue"))
+                        {
+                            lamp.Hue = (int)z.Value;
+                        }
+                        if (z.Name.Contains("sat"))
+                        {
+                            lamp.Saturation = (int)z.Value;
+                        }
                     }
-                    if (z.Name.Contains("bri"))
-                    {
-                        lamp.Brightness = (int)z.Value;
-                    }
-                    if (z.Name.Contains("hue"))
-                    {
-                        lamp.Hue = (int)z.Value;
-                    }
-                    if (z.Name.Contains("sat"))
-                    {
-                        lamp.Saturation = (int)z.Value;
-                    }
+
+                    string a = x.Name;
+
+                    lamp.Number = int.Parse(x.Name);
+                    lamp.Type = (string)x.Value.SelectToken("type");
+                    lamp.Name = (string)x.Value.SelectToken("name");
+                    lamp.ModelID = (string)x.Value.SelectToken("modelid");
+                    lamp.UniqueID = (string)x.Value.SelectToken("uniqueid");
+                    lamps.Add(lamp);
                 }
-
-                string a = x.Name;
-
-                lamp.Number = int.Parse(x.Name);
-                lamp.Type = (string)x.Value.SelectToken("type");
-                lamp.Name = (string)x.Value.SelectToken("name");
-                lamp.ModelID = (string)x.Value.SelectToken("modelid");
-                lamp.UniqueID = (string)x.Value.SelectToken("uniqueid");
-                lamps.Add(lamp);
+                return lamps;
             }
-            return lamps;
+
+           
         }
         //create an account on the bridge
         public async Task<bool> CreateAccount(string name, string appname, MainPage page)
@@ -85,7 +94,7 @@ namespace Hue
 
             if (response == null)
             {
-                page.ErrorOccurred(404, "Connction error: Are you connected to the bridge?");
+                page.ErrorOccurred(420, "Connction error: Are you connected to the bridge?");
                 return false;
             }
             else if (response[0].ToString().Contains("error"))
@@ -93,6 +102,10 @@ namespace Hue
                 string desc = (string)response[0].SelectToken("error").SelectToken("description");
                 int type = (int)response[0].SelectToken("error").SelectToken("type");
                 page.ErrorOccurred(type, desc);
+                if (type == 3)
+                {
+                    desc = "Have you logged in to the bridge yet?";
+                }
                 return false;
             }
             else
@@ -103,7 +116,7 @@ namespace Hue
         }
 
         //send command to turn lamp on or off
-        public async void LampSwitch(int lampId, bool on, MainPage page)
+        public async Task<bool> LampSwitch(int lampId, bool on, MainPage page)
         {
             Uri lampState = new Uri($"http://{ClientInfo.IP}:{ClientInfo.Port}/api/{ClientInfo.UserName}/lights/{lampId}/state");
             string body;
@@ -121,19 +134,23 @@ namespace Hue
             if (response == null)
             {
                 page.ErrorOccurred(404, "Connction error: Are you connected to the bridge?");
-                return;
+                return on;
             }
             else if (response.ToString().Contains("error"))
             {
-                string desc = (string)response.SelectToken("error").SelectToken("description");
-                int type = (int)response.SelectToken("error").SelectToken("type");
+                string desc = (string)response[0].SelectToken("error").SelectToken("description");
+                int type = (int)response[0].SelectToken("error").SelectToken("type");
                 page.ErrorOccurred(type, desc);
-                return;
+                return on;
+            }
+            else
+            {
+               return (bool) response[0].SelectToken("success").SelectToken($"/lights/{lampId}/state/on");
             }
         }
 
         //set the hue sat or bri of a lamp
-        public async void HueSatBri(int lampId, int hue, int sat, int bri, MainPage page)
+        public async Task<int[]> HueSatBri(int lampId, int hue, int sat, int bri, MainPage page)
         {
             Uri lampState = new Uri($"http://{ClientInfo.IP}:{ClientInfo.Port}/api/{ClientInfo.UserName}/lights/{lampId}/state");
             string body = $"{{\"sat\":{sat}, \"bri\":{bri},\"hue\":{hue}}}";
@@ -143,14 +160,23 @@ namespace Hue
             if (response == null)
             {
                 page.ErrorOccurred(404, "Connction error: Are you connected to the bridge?");
-                return;
+                return null;
             }
             else if (response.ToString().Contains("error"))
             {
-                string desc = (string)response.SelectToken("error").SelectToken("description");
-                int type = (int)response.SelectToken("error").SelectToken("type");
+                string desc = (string)response[0].SelectToken("error").SelectToken("description");
+                int type = (int)response[0].SelectToken("error").SelectToken("type");
                 page.ErrorOccurred(type, desc);
-                return;
+                return null;
+            }
+            else
+            {
+                int[] color = new int[3];
+                color[1] = (int)response[0].SelectToken("success").SelectToken($"/lights/{lampId}/state/sat");
+                color[2] = (int)response[1].SelectToken("success").SelectToken($"/lights/{lampId}/state/bri");
+                color[0] = (int)response[2].SelectToken("success").SelectToken($"/lights/{lampId}/state/hue");
+
+                return color;
             }
         }
     }

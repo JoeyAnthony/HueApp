@@ -43,14 +43,6 @@ namespace Hue
             Saturation = sat;
         }
 
-        //private void Switch_Click(object sender, RoutedEventArgs e)
-        //{
-        //    commands.LampSwitch(1, false);
-        //}
 
-        //private void Color_Click(object sender, RoutedEventArgs e)
-        //{
-        //    commands.HueSatBri(1, 100, 100, 100);
-        //}
     }
 }

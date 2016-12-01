@@ -14,7 +14,7 @@ using System.IO;
 
 namespace Hue
 {
-    class SendReceive
+   public class SendReceive
     {
 
         public SendReceive()
@@ -22,11 +22,11 @@ namespace Hue
             Debug.WriteLine("All set");
         }
         //send GET messages
-        public async Task<JObject> GET(Uri command)
+        public async Task<JContainer> GET(Uri command)
         {
             try
             {
-                JObject data = null;
+                JContainer data = null;
 
                 HttpClient HttpClient = new HttpClient();
                 var response = await HttpClient.GetAsync(command);
@@ -34,9 +34,11 @@ namespace Hue
                 response.EnsureSuccessStatusCode();
 
                 string json = await response.Content.ReadAsStringAsync();
-                data = JObject.Parse(json);
+
+                data = JContainer.Parse(json) as JContainer;
 
                 return data;
+                
             }
             catch (Exception)
             {
