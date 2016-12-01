@@ -35,6 +35,22 @@ namespace HueApp.Pages
             var Mainpage = (Hue.MainPage)args.Parameter;
             mainPage = Mainpage;
             UserText.Text = mainPage.Lampstuff.ClientInfo.UserName;
+            if (!mainPage.connected)
+            {
+                Error1.Visibility = Visibility.Visible;
+                Error2.Visibility = Visibility.Visible;
+                ConnectButton.Visibility = Visibility.Visible;
+                UserText.Visibility = Visibility.Collapsed;
+                text1.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                Error1.Visibility = Visibility.Collapsed;
+                Error2.Visibility = Visibility.Collapsed;
+                ConnectButton.Visibility = Visibility.Collapsed;
+                UserText.Visibility = Visibility.Visible;
+                text1.Visibility = Visibility.Visible;
+            }
         }
 
         public async void Login(object sender, RoutedEventArgs e)
@@ -42,6 +58,13 @@ namespace HueApp.Pages
             if(await mainPage.Lampstuff.CreateAccount("name", "HueApp", mainPage))
             {
                 UserText.Text = mainPage.Lampstuff.ClientInfo.UserName;
+
+                mainPage.connected = true;
+                Error1.Visibility = Visibility.Collapsed;
+                Error2.Visibility = Visibility.Collapsed;
+                ConnectButton.Visibility = Visibility.Collapsed;
+                UserText.Visibility = Visibility.Visible;
+                text1.Visibility = Visibility.Visible;
                 mainPage.GetLamps();
             }
             

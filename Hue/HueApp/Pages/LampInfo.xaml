@@ -19,17 +19,18 @@
         <TextBlock Text="LampName" Name="LampName" FontSize="30" Margin="10,4,0,0"/>
         <StackPanel Grid.Row="1" Margin="5,5,5,5">
             <TextBlock Text="Hue: " FontSize="20"/>
-            <Slider Name ="HueSlider" VerticalAlignment="Center" Maximum="65535"/>
+            <Image Source="/Assets/Hue.png" Height="20" Stretch="Fill"/>
+            <Slider Name ="HueSlider" VerticalAlignment="Center" Maximum="65535" ValueChanged="Slider_Drag"/>
         </StackPanel>
         <StackPanel Grid.Row="2" Margin="5,5,5,5">
             <TextBlock Text="Saturation: " FontSize="20"/>
-            <Slider Name ="SatSlider" VerticalAlignment="Center" Maximum="254"/>
+            <Slider Name ="SatSlider" VerticalAlignment="Center" Maximum="254" ValueChanged="Slider_Drag"/>
         </StackPanel>
         <StackPanel Grid.Row="3" Margin="5,5,5,5">
             <TextBlock Text="Brightness: " FontSize="20"/>
-            <Slider Name ="BriSlider" VerticalAlignment="Center" Maximum="254"/>
+            <Slider Name ="BriSlider" VerticalAlignment="Center" Maximum="254" ValueChanged="Slider_Drag"/>
         </StackPanel>
-        <Rectangle Grid.Row="4" Fill="Blue" Margin="5,5,5,5"/>
+        <Rectangle Name="ColorRect" Grid.Row="4" Margin="5,5,5,5"/>
         <ToggleSwitch Name="lightToggle" Grid.Row="5" Width="100" Height="50" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10,10,10,10"/>
         <Button Name="sendButton" Grid.Row="5" Width="100" Height="50" FontSize="20" Content="Send" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10,10,10,10" Click="sendButton_Click"/>
     </Grid>

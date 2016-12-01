@@ -96,6 +96,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Client.cs" />
+    <Compile Include="ColorUtil.cs" />
     <Compile Include="Command.cs" />
     <Compile Include="Group.cs" />
     <Compile Include="Lamp.cs" />
@@ -117,8 +118,8 @@
     <Compile Include="Pages\LampsPage.xaml.cs">
       <DependentUpon>LampsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\SettingsPage.xaml.cs">
-      <DependentUpon>SettingsPage.xaml</DependentUpon>
+    <Compile Include="Pages\UserPage.xaml.cs">
+      <DependentUpon>UserPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SendReceive.cs" />
@@ -131,6 +132,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\Cas.png" />
+    <Content Include="Assets\Hue.png" />
     <Content Include="Assets\Joey.png" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
@@ -170,7 +172,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\SettingsPage.xaml">
+    <Page Include="Pages\UserPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

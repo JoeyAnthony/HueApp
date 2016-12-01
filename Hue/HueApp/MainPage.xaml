@@ -29,10 +29,10 @@
                             <TextBlock Text="Home" FontSize="20"/>
                         </StackPanel>
                     </ListBoxItem>
-                    <ListBoxItem Name="Settings">
+                    <ListBoxItem Name="User">
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Width="50" FontFamily="Segoe MDL2 Assets" FontSize="26" Text="&#xE115;"/>
-                            <TextBlock Text="Settings" FontSize="20"/>
+                            <TextBlock Width="50" FontFamily="Segoe MDL2 Assets" FontSize="26" Text="&#xE13D;"/>
+                            <TextBlock Text="User" FontSize="20"/>
                         </StackPanel>
                     </ListBoxItem>
                     <ListBoxItem Name="LampsBox">

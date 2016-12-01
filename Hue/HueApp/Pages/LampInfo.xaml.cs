@@ -7,6 +7,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -37,7 +38,11 @@ namespace HueApp.Pages
             var LampGot = (LampsPage)args.Parameter;
             LampsPage = LampGot;
             Lamp = LampsPage.getLamp(LampsPage.currentNumber);
-            LampName.Text = Lamp.Name;
+
+            if (!LampsPage.Allbutton)
+                LampName.Text = Lamp.Name;
+            else
+                LampName.Text = "All Lamps";
 
             lightToggle.IsOn = Lamp.IsOn;
             lightToggle.Toggled += Switch_Click;
@@ -45,40 +50,73 @@ namespace HueApp.Pages
             HueSlider.Value = Lamp.Hue;
             SatSlider.Value = Lamp.Saturation;
             BriSlider.Value = Lamp.Brightness;
+
+            ColorRect.Fill = new SolidColorBrush(ColorUtil.HsvToRgb(HueSlider.Value, SatSlider.Value, BriSlider.Value));
         }
 
-        private void SetSwitch()
+        private void Switch_Click(object sender, RoutedEventArgs e)
         {
+            if (!LampsPage.Allbutton)
+            {
+                Switch(Lamp.Number);
+            }
+            else
+            {
+                for (int i = 0; i < LampsPage.Lamps.Count; i++)
+                {
+                    Switch(i + 1);
+                }
+            }
         }
 
-        private async void Switch_Click(object sender, RoutedEventArgs e)
+        private void sendButton_Click(object sender, RoutedEventArgs e)
         {
-            Lamp.IsOn = await LampsPage.PageoftheMain.Lampstuff.LampSwitch(Lamp.Number, Lamp.IsOn, LampsPage.PageoftheMain);
+            if (!LampsPage.Allbutton)
+            {
+                sendColor(Lamp.Number);
+            }
+            else
+            {
+                for(int i = 0; i<LampsPage.Lamps.Count; i++)
+                {
+                    sendColor(i + 1);
+                }   
+            }
         }
 
-        private async void sendButton_Click(object sender, RoutedEventArgs e)
+        private async void Switch(int number)
+        {
+            LampsPage.Lamps[number-1].IsOn = await LampsPage.PageoftheMain.Lampstuff.LampSwitch(LampsPage.Lamps[number - 1].Number, LampsPage.Lamps[number - 1].IsOn, LampsPage.PageoftheMain);
+        }
+
+
+        private async void sendColor(int number)
         {
             var response = await LampsPage.PageoftheMain.Lampstuff.HueSatBri(
-                Lamp.Number,
-                (int)HueSlider.Value,
-                (int)SatSlider.Value,
-                (int)BriSlider.Value,
-                LampsPage.PageoftheMain);
-
+                    number,
+                    (int)HueSlider.Value,
+                    (int)SatSlider.Value,
+                    (int)BriSlider.Value,
+                    LampsPage.PageoftheMain);
             if (response == null)
             {
                 return;
             }
             else
             {
-                Lamp.Hue = response[0];
-                Lamp.Saturation = response[1];
-                Lamp.Brightness = response[2];
+                LampsPage.Lamps[number-1].Hue = response[0];
+                LampsPage.Lamps[number - 1].Saturation = response[1];
+                LampsPage.Lamps[number - 1].Brightness = response[2];
 
-                HueSlider.Value = Lamp.Hue;
-                SatSlider.Value = Lamp.Saturation;
-                BriSlider.Value = Lamp.Brightness;
+                HueSlider.Value = LampsPage.Lamps[number - 1].Hue;
+                SatSlider.Value = LampsPage.Lamps[number - 1].Saturation;
+                BriSlider.Value = LampsPage.Lamps[number - 1].Brightness;
             }
+        }
+
+        private void Slider_Drag(object sender, RangeBaseValueChangedEventArgs e)
+        {
+            ColorRect.Fill = new SolidColorBrush(ColorUtil.HsvToRgb(HueSlider.Value, SatSlider.Value, BriSlider.Value));
         }
     }
 }
