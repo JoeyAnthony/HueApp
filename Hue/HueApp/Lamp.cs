@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.UI.Xaml.Media;
 
 namespace Hue
 {
@@ -17,6 +18,7 @@ namespace Hue
         public int Brightness = 0;
         public int Hue = 0;
         public int Saturation = 0;
+        public SolidColorBrush Color { get; set; }
 
         public Lamp()
         {

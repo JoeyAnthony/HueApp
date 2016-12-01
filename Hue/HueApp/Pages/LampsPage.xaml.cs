@@ -25,8 +25,9 @@ namespace HueApp.Pages
     public sealed partial class LampsPage : Page
     {
         private Hue.MainPage mainPage;
-        ObservableCollection<Lamp> Lamps = new ObservableCollection<Lamp>();
+        public ObservableCollection<Lamp> Lamps = new ObservableCollection<Lamp>();
         public int currentNumber { get; set; }
+        public bool Allbutton = false;
 
         public MainPage PageoftheMain { get { return mainPage; } }
 
@@ -40,6 +41,11 @@ namespace HueApp.Pages
             var Mainpage = (Hue.MainPage)args.Parameter;
             mainPage = Mainpage;
             Lamps = mainPage.LampsProp;
+
+            for(int i = 0; i<Lamps.Count; i++)
+            {
+                Lamps[i].Color = new SolidColorBrush(ColorUtil.HsvToRgb(Lamps[i].Hue, Lamps[i].Saturation, Lamps[i].Brightness));
+            }
         }
 
         private void LampButton_Click(object sender, RoutedEventArgs e)
@@ -48,6 +54,7 @@ namespace HueApp.Pages
             int number = 0;
             Int32.TryParse(clickedButton.Name, out number);
             currentNumber = number;
+            Allbutton = false;
 
             mainPage.BackButton.Visibility = Visibility.Visible;
             mainPage.ContentFrame.Navigate(typeof(LampInfo), this);
@@ -55,7 +62,12 @@ namespace HueApp.Pages
 
         private void AllLamps_Button(object sender, RoutedEventArgs e)
         {
+            Button clickedButton = (Button)sender;
+            currentNumber = 1;
+            Allbutton = true;
 
+            mainPage.BackButton.Visibility = Visibility.Visible;
+            mainPage.ContentFrame.Navigate(typeof(LampInfo), this);
         }
 
         public Lamp getLamp(int number)

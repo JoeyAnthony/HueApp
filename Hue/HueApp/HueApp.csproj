@@ -96,6 +96,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Client.cs" />
+    <Compile Include="ColorUtil.cs" />
     <Compile Include="Command.cs" />
     <Compile Include="Lamp.cs" />
     <Compile Include="MainPage.xaml.cs">
@@ -130,6 +131,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\Cas.png" />
+    <Content Include="Assets\Hue.png" />
     <Content Include="Assets\Joey.png" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />

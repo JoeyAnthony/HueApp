@@ -17,12 +17,12 @@
         <GridView ItemsSource="{x:Bind Lamps}" Margin="3,0,0,0">
             <GridView.ItemTemplate>
                 <DataTemplate x:DataType="data:Lamp">
-                    <Button Name="{x:Bind Number}" Content="{x:Bind Name}" Width="90" Height="90" Click="LampButton_Click"/>
+                    <Button Name="{x:Bind Number}" Background="{x:Bind Color}" Content="{x:Bind Name}" Width="90" Height="90" Click="LampButton_Click"/>
                 </DataTemplate>
             </GridView.ItemTemplate>
         </GridView>
         <GridView Margin="3,0,0,0" Grid.Row="2">
-            <Button Content="All lamps" Width="90" Height="90"/>
+            <Button Name="All" Content="All lamps" Width="90" Height="90" Click="AllLamps_Button"/>
         </GridView>
     </Grid>
 </Page>
