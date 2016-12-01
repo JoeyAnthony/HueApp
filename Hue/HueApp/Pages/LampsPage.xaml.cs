@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -45,6 +46,8 @@ namespace HueApp.Pages
             for(int i = 0; i<Lamps.Count; i++)
             {
                 Lamps[i].Color = new SolidColorBrush(ColorUtil.HsvToRgb(Lamps[i].Hue, Lamps[i].Saturation, Lamps[i].Brightness));
+                All.Visibility = Visibility.Visible;
+                Error.Visibility = Visibility.Collapsed;
             }
         }
 
@@ -80,6 +83,17 @@ namespace HueApp.Pages
                 }
             }
             return new Lamp();
+        }
+
+        private async void Refresh_Click(object sender, RoutedEventArgs e)
+        {
+            mainPage.GetLamps();
+            Lamps = mainPage.LampsProp;
+
+            await Task.Delay(TimeSpan.FromSeconds(0.3));
+
+            mainPage.ContentFrame.GoBack();
+            mainPage.ContentFrame.GoForward();
         }
     }
 }

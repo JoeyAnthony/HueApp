@@ -27,6 +27,7 @@ namespace Hue
             if (response == null)
             {
                 page.ErrorOccurred(404,"Connction error: Are you connected to the bridge?");
+                page.connected = false;
                 return null;
             }
             else if (response is JArray)
@@ -37,6 +38,7 @@ namespace Hue
                 if (type == 3)
                 {
                     desc = "Have you logged in to the bridge yet?";
+                    page.connected = false;
                 }
                 page.ErrorOccurred(type, desc);
                 return null;
@@ -95,6 +97,7 @@ namespace Hue
             if (response == null)
             {
                 page.ErrorOccurred(420, "Connction error: Are you connected to the bridge?");
+                page.connected = false;
                 return false;
             }
             else if (response[0].ToString().Contains("error"))
@@ -105,6 +108,7 @@ namespace Hue
                 if (type == 3)
                 {
                     desc = "Have you logged in to the bridge yet?";
+                    page.connected = false;
                 }
                 return false;
             }
@@ -134,6 +138,7 @@ namespace Hue
             if (response == null)
             {
                 page.ErrorOccurred(404, "Connction error: Are you connected to the bridge?");
+                page.connected = false;
                 return on;
             }
             else if (response.ToString().Contains("error"))
@@ -160,6 +165,7 @@ namespace Hue
             if (response == null)
             {
                 page.ErrorOccurred(404, "Connction error: Are you connected to the bridge?");
+                page.connected = false;
                 return null;
             }
             else if (response.ToString().Contains("error"))

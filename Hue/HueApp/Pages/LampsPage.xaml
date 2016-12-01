@@ -9,20 +9,30 @@
     xmlns:data="using:Hue">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <ScrollViewer>
+            <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
             <RowDefinition Height="20"/>
+            <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <GridView ItemsSource="{x:Bind Lamps}" Margin="3,0,0,0">
+        <TextBlock Name="Error" Text="Not connected to a Hue Network" FontSize="20" HorizontalAlignment="Left" Foreground="Red" Margin="10,4,0,0"/>
+        <GridView ItemsSource="{x:Bind Lamps}" Margin="3,0,0,0" Grid.Row="1">
             <GridView.ItemTemplate>
                 <DataTemplate x:DataType="data:Lamp">
                     <Button Name="{x:Bind Number}" Background="{x:Bind Color}" Content="{x:Bind Name}" Width="90" Height="90" Click="LampButton_Click"/>
                 </DataTemplate>
             </GridView.ItemTemplate>
         </GridView>
-        <GridView Margin="3,0,0,0" Grid.Row="2">
-            <Button Name="All" Content="All lamps" Width="90" Height="90" Click="AllLamps_Button"/>
+        <GridView Margin="3,0,0,0" Grid.Row="3">
+            <Button Name="All" Content="All lamps" Width="90" Height="90" Click="AllLamps_Button" Visibility="Collapsed"/>
         </GridView>
+        <GridView Margin="3,0,0,0" Grid.Row="4">
+            <Button Name="Refresh" Content="Refresh" Width="90" Height="90" Click="Refresh_Click"/>
+        </GridView>
+            </Grid>
+        </ScrollViewer>
     </Grid>
 </Page>

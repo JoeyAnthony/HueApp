@@ -31,6 +31,7 @@ namespace Hue
         private ObservableCollection<Lamp> Lamps = new ObservableCollection<Lamp>();
         private Command commands = new Command();
 
+        public bool connected = false;
         public ObservableCollection<Lamp> LampsProp { get { return Lamps; } }
         public Command Lampstuff { get { return commands; } }
 
@@ -57,9 +58,9 @@ namespace Hue
                 BackButton.Visibility = Visibility.Collapsed;
                 ContentFrame.Navigate(typeof(HomePage), this);
             }
-            else if (Settings.IsSelected)
+            else if (User.IsSelected)
             {
-                TitleTextBlock.Text = "Settings";
+                TitleTextBlock.Text = "User";
                 BackButton.Visibility = Visibility.Collapsed;
                 ContentFrame.Navigate(typeof(SettingsPage), this);
             }
