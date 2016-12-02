@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Hue
 {
-    class Group
+    public class Group
     {
         List<int> LightNumbers = new List<int>();
         string Name;

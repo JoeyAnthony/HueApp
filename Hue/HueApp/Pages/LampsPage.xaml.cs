@@ -96,9 +96,14 @@ namespace HueApp.Pages
             mainPage.ContentFrame.GoForward();
         }
 
-        private void Test_Click(object sender, RoutedEventArgs e)
+        //UNFINISHED
+        ////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////
+        private async void Test_Click(object sender, RoutedEventArgs e)
         {
-
+           await mainPage.Lampstuff.GetGroups(mainPage);
         }
+        ////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////
     }
 }
