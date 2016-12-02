@@ -98,6 +98,7 @@
     <Compile Include="Client.cs" />
     <Compile Include="ColorUtil.cs" />
     <Compile Include="Command.cs" />
+    <Compile Include="Group.cs" />
     <Compile Include="Lamp.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>

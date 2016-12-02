@@ -110,16 +110,11 @@ namespace Hue
             }
         }
 
-        //private void NewAccount_Click()
-        //{
-        //    commands.CreateAccount("name", "HueApp", this);
-        //}
-
-        private void AllColor_Click()
+        private async void AllColor_Click()
         {
             foreach (Lamp l in Lamps)
             {
-                commands.HueSatBri(l.Number, 100, 100, 100, this);
+               await commands.HueSatBri(l.Number, 100, 100, 100, this);
             }
         }
 

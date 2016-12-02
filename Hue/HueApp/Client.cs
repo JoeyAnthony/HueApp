@@ -8,8 +8,8 @@ namespace Hue
 {
     public class Client
     {
-        private static string UName = "";
-        private static string IPadress = "Localhost";
+        private static string UName = "iYrmsQq1wu5FxF9CPqpJCnm1GpPVylKBWDUsNDhB";
+        private static string IPadress = "145.48.205.33";
         private static int PortNum = 80;
 
         public string UserName { get { return UName; } set { UName = value; } }
