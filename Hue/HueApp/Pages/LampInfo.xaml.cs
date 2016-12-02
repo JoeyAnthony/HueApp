@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -92,26 +93,28 @@ namespace HueApp.Pages
 
         private async void sendColor(int number)
         {
-            var response = await LampsPage.PageoftheMain.Lampstuff.HueSatBri(
-                    number,
-                    (int)HueSlider.Value,
-                    (int)SatSlider.Value,
-                    (int)BriSlider.Value,
-                    LampsPage.PageoftheMain);
-            if (response == null)
-            {
-                return;
-            }
-            else
-            {
-                LampsPage.Lamps[number-1].Hue = response[0];
-                LampsPage.Lamps[number - 1].Saturation = response[1];
-                LampsPage.Lamps[number - 1].Brightness = response[2];
+                var response = await LampsPage.PageoftheMain.Lampstuff.HueSatBri(
+                        number,
+                        (int)HueSlider.Value,
+                        (int)SatSlider.Value,
+                        (int)BriSlider.Value,
+                        LampsPage.PageoftheMain);
 
-                HueSlider.Value = LampsPage.Lamps[number - 1].Hue;
-                SatSlider.Value = LampsPage.Lamps[number - 1].Saturation;
-                BriSlider.Value = LampsPage.Lamps[number - 1].Brightness;
-            }
+                if (response == null)
+                {
+                    return;
+                }
+                else
+                {
+                    LampsPage.Lamps[number - 1].Hue = response[0];
+                    LampsPage.Lamps[number - 1].Saturation = response[1];
+                    LampsPage.Lamps[number - 1].Brightness = response[2];
+
+                    HueSlider.Value = LampsPage.Lamps[number - 1].Hue;
+                    SatSlider.Value = LampsPage.Lamps[number - 1].Saturation;
+                    BriSlider.Value = LampsPage.Lamps[number - 1].Brightness;
+                }
+            
         }
 
         private void Slider_Drag(object sender, RangeBaseValueChangedEventArgs e)

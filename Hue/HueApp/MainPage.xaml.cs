@@ -18,6 +18,7 @@ using System.Diagnostics;
 using Newtonsoft.Json.Linq;
 using System.Net.Http;
 using Windows.UI.Text;
+using System.Threading.Tasks;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -28,10 +29,10 @@ namespace Hue
     /// </summary>
     public sealed partial class MainPage : Page
     {
-        private ObservableCollection<Lamp> Lamps = new ObservableCollection<Lamp>();
+        public ObservableCollection<Lamp> Lamps = new ObservableCollection<Lamp>();
         private Command commands = new Command();
 
-        public bool connected = false;
+        public bool connected = true;
         public ObservableCollection<Lamp> LampsProp { get { return Lamps; } }
         public Command Lampstuff { get { return commands; } }
 
@@ -120,6 +121,17 @@ namespace Hue
             {
                 commands.HueSatBri(l.Number, 100, 100, 100, this);
             }
+        }
+
+        private async void Refresh_Click(object sender, RoutedEventArgs e)
+        {
+            GetLamps();
+            Lamps = LampsProp;
+
+            await Task.Delay(TimeSpan.FromSeconds(0.3));
+
+            ContentFrame.GoBack();
+            ContentFrame.GoForward();
         }
     }
 }

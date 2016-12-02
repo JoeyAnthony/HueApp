@@ -8,9 +8,9 @@ namespace Hue
 {
     public class Client
     {
-        private static string UName = "No Username";
-        private static string IPadress = "localhost";
-        private static int PortNum = 8000;
+        private static string UName = "";
+        private static string IPadress = "Localhost";
+        private static int PortNum = 80;
 
         public string UserName { get { return UName; } set { UName = value; } }
         public string IP { get { return IPadress; } set { IPadress = value; } }

@@ -14,6 +14,7 @@ using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
@@ -25,7 +26,7 @@ namespace HueApp.Pages
     /// </summary>
     public sealed partial class LampsPage : Page
     {
-        private Hue.MainPage mainPage;
+        public Hue.MainPage mainPage;
         public ObservableCollection<Lamp> Lamps = new ObservableCollection<Lamp>();
         public int currentNumber { get; set; }
         public bool Allbutton = false;
@@ -41,12 +42,18 @@ namespace HueApp.Pages
         {
             var Mainpage = (Hue.MainPage)args.Parameter;
             mainPage = Mainpage;
+
             Lamps = mainPage.LampsProp;
 
             for(int i = 0; i<Lamps.Count; i++)
             {
                 Lamps[i].Color = new SolidColorBrush(ColorUtil.HsvToRgb(Lamps[i].Hue, Lamps[i].Saturation, Lamps[i].Brightness));
+
                 All.Visibility = Visibility.Visible;
+                All.Background = Lamps[0].Color;
+
+                Disco.Visibility = Visibility.Visible;
+
                 Error.Visibility = Visibility.Collapsed;
             }
         }
@@ -85,15 +92,9 @@ namespace HueApp.Pages
             return new Lamp();
         }
 
-        private async void Refresh_Click(object sender, RoutedEventArgs e)
+        private void Disco_Button(object sender, RoutedEventArgs e)
         {
-            mainPage.GetLamps();
-            Lamps = mainPage.LampsProp;
-
-            await Task.Delay(TimeSpan.FromSeconds(0.3));
-
-            mainPage.ContentFrame.GoBack();
-            mainPage.ContentFrame.GoForward();
+            mainPage.ContentFrame.Navigate(typeof(DiscoPage), this);
         }
     }
 }

@@ -105,6 +105,9 @@
     <Compile Include="Pages\CasInfoPage.xaml.cs">
       <DependentUpon>CasInfoPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\DiscoPage.xaml.cs">
+      <DependentUpon>DiscoPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\HomePage.xaml.cs">
       <DependentUpon>HomePage.xaml</DependentUpon>
     </Compile>
@@ -133,6 +136,7 @@
     <Content Include="Assets\Cas.png" />
     <Content Include="Assets\Hue.png" />
     <Content Include="Assets\Joey.png" />
+    <Content Include="Assets\party.png" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
@@ -152,6 +156,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Pages\CasInfoPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\DiscoPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

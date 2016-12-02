@@ -16,11 +16,11 @@
         <RelativePanel>
             <Button Name="SplitButton" Width="50" Height="50" HorizontalAlignment="Left" FontFamily="Segoe MDL2 Assets" FontSize="20" Content="&#xE700;" Click="OpenClosePane_Click"/>
             <TextBlock Name="TitleTextBlock" Text="Home" RelativePanel.RightOf="SplitButton" FontSize="25" FontWeight="Bold" Margin="10,7,0,0"/>
-            <Button Name="BackButton" Width="50" Height="50" RelativePanel.AlignRightWithPanel="True" FontFamily="Segoe MDL2 Assets" FontSize="20" Content="&#xE112;" Click="Back_Click" Visibility="Collapsed" x:FieldModifier="public"/>
+            <Button Name="BackButton" Width="50" Height="50" RelativePanel.AlignRightWith="RefreshButton" Margin="0,0,50,0" FontFamily="Segoe MDL2 Assets" FontSize="20" Content="&#xE112;" Click="Back_Click" Visibility="Collapsed" x:FieldModifier="public"/>
+            <Button Name="RefreshButton" Width="50" Height="50" RelativePanel.AlignRightWithPanel="true" FontFamily="Segoe MDL2 Assets" FontSize="20" Content="&#xE149;" Click="Refresh_Click" x:FieldModifier="public"/>
         </RelativePanel>
 
         <SplitView Grid.Row="1" Name="Split" DisplayMode="CompactOverlay" CompactPaneLength="50" OpenPaneLength="180">
-            
             <SplitView.Pane>
                 <ListBox SelectionMode="Single" Name="HamburberBox" SelectionChanged="HamburgerBox_SelectionChanged">
                     <ListBoxItem Name="Home">
